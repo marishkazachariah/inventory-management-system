@@ -1,4 +1,4 @@
-public class Item implements ItemDelegate {
+public abstract class Item implements ItemDelegate {
     private int id;
     private String name;
     private int quantity;

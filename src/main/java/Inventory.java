@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory implements InventoryDelegate {
-    List<Item> items = new ArrayList<>();
+public class Inventory<T extends Item> implements InventoryDelegate<T> {
+    private List<T> items = new ArrayList<>();
 
     @Override
-    public void addItem(Item item) {
+    public void addItem(T item) {
         items.add(item);
     }
 
@@ -23,7 +23,7 @@ public class Inventory implements InventoryDelegate {
             }
         }
         if(!isRemoved) {
-            throw new ItemNotFoundException("Item with " + itemID + " not found.");
+            throw new ItemNotFoundException("Item with id " + itemID + " not found.");
         }
     }
 
@@ -34,21 +34,27 @@ public class Inventory implements InventoryDelegate {
             if(item.getID() == itemID) {
                 item.setQuantity(item.getQuantity() - 1);
                 if(item.getQuantity() <= 0) {
-                    throw new InsufficientStockException("Item " + itemID + " not in stock.");
+                    throw new InsufficientStockException("Item with id" + itemID + " not in stock.");
                 }
                 isRemoved = true;
                 break;
             }
         }
         if(!isRemoved) {
-            throw new ItemNotFoundException("Item with " + itemID + " not found.");
+            throw new ItemNotFoundException("Item with id " + itemID + " not found.");
         }
     }
 
     @Override
     public void viewItems() {
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println(" " + items.get(i).toString());
+        StringBuilder listOfItems = new StringBuilder();
+
+        listOfItems.append("ID, Name, Quantity\n");
+
+        // Append artist details to the StringBuilder
+        for (Item item : items) {
+            listOfItems.append(item.getID()).append(" ").append(item.getName()).append(" ").append(item.getQuantity()).append("\n");
+            System.out.println(listOfItems);
         }
     }
 

@@ -1,5 +1,5 @@
-public interface InventoryDelegate {
-    void addItem(Item item);
+public interface InventoryDelegate<T extends Item>  {
+    void addItem(T item);
     void removeItem(int itemID) throws ItemNotFoundException, InsufficientStockException;
     void viewItems();
     public void editItem(Item taskYouWantToEdit, String editedName);
