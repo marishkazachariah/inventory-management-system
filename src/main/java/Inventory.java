@@ -53,7 +53,7 @@ public class Inventory<T extends Item> implements InventoryDelegate<T> {
 
         // Append artist details to the StringBuilder
         for (Item item : items) {
-            listOfItems.append(item.getID()).append(" ").append(item.getName()).append(" ").append(item.getQuantity()).append("\n");
+            listOfItems.append(item.getID()).append(", ").append(item.getName()).append(", ").append(item.getQuantity()).append("\n");
             System.out.println(listOfItems);
         }
     }
