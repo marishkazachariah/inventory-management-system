@@ -28,6 +28,24 @@ public class Inventory implements InventoryDelegate {
     }
 
     @Override
+    public void reduceItemQuantity(int itemID) throws ItemNotFoundException, InsufficientStockException {
+        boolean isRemoved = false;
+        for (Item item: items) {
+            if(item.getID() == itemID) {
+                item.setQuantity(item.getQuantity() - 1);
+                if(item.getQuantity() <= 0) {
+                    throw new InsufficientStockException("Item " + itemID + " not in stock.");
+                }
+                isRemoved = true;
+                break;
+            }
+        }
+        if(!isRemoved) {
+            throw new ItemNotFoundException("Item with " + itemID + " not found.");
+        }
+    }
+
+    @Override
     public void viewItems() {
         for (int i = 0; i < items.size(); i++) {
             System.out.println(" " + items.get(i).toString());
