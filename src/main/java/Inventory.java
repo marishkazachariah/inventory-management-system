@@ -46,7 +46,7 @@ public class Inventory<T extends Item> implements InventoryDelegate<T> {
     }
 
     @Override
-    public void viewItems() {
+    public String viewItems() {
         StringBuilder listOfItems = new StringBuilder();
 
         listOfItems.append("ID, Name, Quantity\n");
@@ -56,13 +56,16 @@ public class Inventory<T extends Item> implements InventoryDelegate<T> {
             listOfItems.append(item.getID()).append(", ").append(item.getName()).append(", ").append(item.getQuantity()).append("\n");
             System.out.println(listOfItems);
         }
+        return listOfItems.toString();
     }
 
     @Override
-    public void editItem(Item taskYouWantToEdit, String editedName){
+    public void editItem(T itemToEdit, String editedName, int editedQuantity){
         for (Item item : items) {
-            if (item.equals(taskYouWantToEdit)) {
+            if (item.equals(itemToEdit)) {
                 item.setName(editedName);
+                item.setQuantity(editedQuantity);
+                break;
             }
         }
     }
